@@ -4,7 +4,7 @@ FROM nvidia/cuda:12.1.0-base-ubuntu18.04
 RUN apt-get update && apt-get install python3 python3-pip -y
 
 # Install some basic utilities
-RUN apt-get update && apt-get install -y \
+RUN apt-get install -y \
     curl \
     ca-certificates \
     sudo \
@@ -16,17 +16,14 @@ RUN apt-get update && apt-get install -y \
     unzip \
  && rm -rf /var/lib/apt/lists/*
 
-# Install OpenCV3 Python bindings
 RUN sudo apt-get update
 
 # Create a working directory
 RUN mkdir /app
-
-# Add requirements file
 WORKDIR /app/
-ADD requirements.txt /app/
 
 # Install requirements
+ADD requirements.txt /app/
 RUN pip3 install pip -U
 RUN pip3 install -r requirements.txt
 
